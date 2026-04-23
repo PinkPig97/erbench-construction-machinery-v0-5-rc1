@@ -5,15 +5,14 @@ This benchmark is an **agent task**, not a bundled runtime.
 The solver may use any scaffold or runtime as long as it can:
 
 - read `input/description.md`
-- inspect bundled reference materials under `input/reference_materials/`
-- optionally search public sources for supplementation
+- search and inspect public sources
 - produce one final markdown report
 
 ## Minimum Runtime
 
 - OS: macOS, Linux, or Windows
 - Python: `3.10+` for the local judge
-- Internet access is optional but recommended if the solver wants to expand beyond the bundled reference materials
+- Internet access is required for normal task execution
 
 ## Solver Runtime
 
@@ -21,8 +20,7 @@ No official scaffold is required.
 
 The solver environment only needs enough capability to:
 
-- read markdown and JSON files
-- inspect URLs or PDFs when needed
+- inspect webpages and PDFs
 - keep track of used sources
 - write one markdown report with appendix
 
