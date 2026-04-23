@@ -7,7 +7,6 @@ It follows the same high-level release shape as `erbench-v0-5-5-rc1`:
 1. `input/`
    Solver-facing task materials:
    - `description.md`
-   - `reference_materials/`
 2. `ENVIRONMENT.md`
    Environment guidance for running the task with any agent/runtime.
 3. `judging/`
@@ -26,8 +25,7 @@ This is an **open-source-discovery industry research task**.
 
 The solver receives:
 
-- the task description
-- a compact reference-material bundle
+- the task description only
 
 and must produce one final markdown report that:
 
