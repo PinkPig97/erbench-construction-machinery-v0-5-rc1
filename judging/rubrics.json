@@ -1,0 +1,345 @@
+{
+  "task_name": "construction_machinery_industry_research_v0_5",
+  "scoring_notes": {
+    "design_intent": "Keep v0.4 human-aligned weighting while adding one final expert-driven emphasis on data-backed beneficiary analysis inside the body.",
+    "primary_goal": "Reward reports that not only name beneficiary traits, but also support beneficiary mapping with concrete company-level analytical numbers and further analysis.",
+    "secondary_goal": "Penalize long, company-heavy but data-thin qualitative prose that reads like generic GenAI commentary rather than analyst-grade industry research."
+  },
+  "criteria": [
+    {
+      "id": "CT-001",
+      "category": "contract",
+      "polarity": "positive",
+      "weight": 1,
+      "criterion": "正文包含七个要求的核心部分。",
+      "check_type": "section_presence",
+      "runner_signal": "body_sections_present_ratio"
+    },
+    {
+      "id": "CT-002",
+      "category": "contract",
+      "polarity": "positive",
+      "weight": 1,
+      "criterion": "审计附录包含 Source Register、Key Claim Map、Core Numbers Table、Assumption List 四部分。",
+      "check_type": "section_presence",
+      "runner_signal": "appendix_sections_present_ratio"
+    },
+    {
+      "id": "TH-001",
+      "category": "thesis",
+      "polarity": "positive",
+      "weight": 4,
+      "criterion": "核心判断部分在靠前位置明确给出行业总判断。",
+      "check_type": "conclusion_near_top",
+      "runner_signal": "core_judgment_present_near_top"
+    },
+    {
+      "id": "TH-002",
+      "category": "thesis",
+      "polarity": "positive",
+      "weight": 4,
+      "criterion": "正文明确指出 1 到 2 个最重要的行业结构变量。",
+      "check_type": "priority_count",
+      "runner_signal": "priority_variable_count_between_1_and_2"
+    },
+    {
+      "id": "TH-003",
+      "category": "thesis",
+      "polarity": "positive",
+      "weight": 5,
+      "criterion": "正文明确解释为什么这些变量比其他因素更重要。",
+      "check_type": "priority_explanation",
+      "runner_signal": "priority_explanation_present"
+    },
+    {
+      "id": "TH-004",
+      "category": "thesis",
+      "polarity": "positive",
+      "weight": 5,
+      "criterion": "正文明确呈现一个被放弃的替代框架或反向理解，而不是只做单向陈述。",
+      "check_type": "alternative_rejection",
+      "runner_signal": "alternative_frame_rejected_present"
+    },
+    {
+      "id": "SG-001",
+      "category": "segmentation",
+      "polarity": "positive",
+      "weight": 2,
+      "criterion": "国内部分至少覆盖两个需求来源维度。",
+      "check_type": "keyword_group_count",
+      "runner_signal": "domestic_demand_dimension_count_gte_2"
+    },
+    {
+      "id": "SG-002",
+      "category": "segmentation",
+      "polarity": "positive",
+      "weight": 2,
+      "criterion": "国内部分至少覆盖两个工程机械品类维度。",
+      "check_type": "keyword_group_count",
+      "runner_signal": "domestic_product_dimension_count_gte_2"
+    },
+    {
+      "id": "SG-003",
+      "category": "segmentation",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "国内部分明确区分哪些品类更可能先改善、哪些仍偏弱。",
+      "check_type": "differentiation",
+      "runner_signal": "domestic_product_differentiation_present"
+    },
+    {
+      "id": "SG-004",
+      "category": "segmentation",
+      "polarity": "positive",
+      "weight": 2,
+      "criterion": "海外部分至少覆盖两个区域层次或区域组别。",
+      "check_type": "keyword_group_count",
+      "runner_signal": "overseas_region_group_count_gte_2"
+    },
+    {
+      "id": "SG-005",
+      "category": "segmentation",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "海外部分解释不同区域的空间、增速、竞争格局或进入壁垒差异中的至少两类。",
+      "check_type": "difference_explanation",
+      "runner_signal": "overseas_region_difference_explained"
+    },
+    {
+      "id": "CP-001",
+      "category": "comparison",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "正文至少出现两个显式横向比较分析块。",
+      "check_type": "comparison_count",
+      "runner_signal": "comparison_block_count_gte_2"
+    },
+    {
+      "id": "CP-002",
+      "category": "comparison",
+      "polarity": "positive",
+      "weight": 2,
+      "criterion": "至少一个横向比较使用数字、份额、增速或区域量级作为支撑。",
+      "check_type": "numeric_anchor",
+      "runner_signal": "comparison_with_numeric_anchor_present"
+    },
+    {
+      "id": "CP-003",
+      "category": "comparison",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "至少一个横向比较进一步说明了其对行业判断或受益方向的含义。",
+      "check_type": "comparison_implication",
+      "runner_signal": "comparison_investment_link_present"
+    },
+    {
+      "id": "BM-001",
+      "category": "beneficiary_mapping",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "正文明确给出受益方向或受益公司特征，而不是停在行业判断层面。",
+      "check_type": "mapping_presence",
+      "runner_signal": "beneficiary_mapping_present"
+    },
+    {
+      "id": "BM-002",
+      "category": "beneficiary_mapping",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "受益方向至少具体到品类暴露、区域布局、海外渠道、本地化能力、后市场服务、产品结构优势中的一类。",
+      "check_type": "mapping_specificity",
+      "runner_signal": "beneficiary_mapping_specificity_present"
+    },
+    {
+      "id": "BM-003",
+      "category": "beneficiary_mapping",
+      "polarity": "positive",
+      "weight": 5,
+      "criterion": "受益方向的判断与行业结构变化之间有明确传导，而不是只做结论点名。",
+      "check_type": "reason_chain",
+      "runner_signal": "beneficiary_mapping_has_reason_chain"
+    },
+    {
+      "id": "BM-004",
+      "category": "beneficiary_mapping",
+      "polarity": "positive",
+      "weight": 8,
+      "criterion": "“结构性机会与受益方向”部分至少有两段以公司或公司特征为对象、带可解析来源、且包含具体分析型数字锚点的进一步分析。",
+      "check_type": "company_numeric_mapping",
+      "runner_signal": "beneficiary_company_numeric_analysis_gte_2"
+    },
+    {
+      "id": "DP-001",
+      "category": "depth",
+      "polarity": "positive",
+      "weight": 8,
+      "criterion": "正文至少有一处完整呈现“需求或区域变化 -> 品类或竞争影响 -> 受益方向”的机制链。",
+      "check_type": "causal_chain",
+      "runner_signal": "full_mechanism_chain_present"
+    },
+    {
+      "id": "DP-002",
+      "category": "depth",
+      "polarity": "positive",
+      "weight": 10,
+      "criterion": "至少一个关键分析块被连续两个以上自然段展开，而不是单段点到为止。",
+      "check_type": "deep_dive_block",
+      "runner_signal": "multi_paragraph_deep_dive_present"
+    },
+    {
+      "id": "DP-003",
+      "category": "depth",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "正文至少一处解释了“为什么是现在”，而不是停留在长期正确但当前无交易意义的判断。",
+      "check_type": "why_now",
+      "runner_signal": "why_now_explanation_present"
+    },
+    {
+      "id": "DP-004",
+      "category": "depth",
+      "polarity": "positive",
+      "weight": 4,
+      "criterion": "正文至少一处解释了为什么某个公司特征会比单纯行业 beta 更重要。",
+      "check_type": "alpha_over_beta",
+      "runner_signal": "alpha_over_beta_explanation_present"
+    },
+    {
+      "id": "FL-001",
+      "category": "falsification",
+      "polarity": "positive",
+      "weight": 4,
+      "criterion": "正文至少提出两个会削弱主线的风险或反方变量。",
+      "check_type": "count",
+      "runner_signal": "counterargument_count_gte_2"
+    },
+    {
+      "id": "FL-002",
+      "category": "falsification",
+      "polarity": "positive",
+      "weight": 4,
+      "criterion": "正文至少提出两个证伪条件，且这些条件尽量可观察。",
+      "check_type": "count",
+      "runner_signal": "falsification_condition_count_gte_2"
+    },
+    {
+      "id": "FL-003",
+      "category": "falsification",
+      "polarity": "positive",
+      "weight": 4,
+      "criterion": "关键争议与主线取舍部分明确解释了为什么最终没有采纳最强反方观点。",
+      "check_type": "counterargument_resolution",
+      "runner_signal": "counterargument_rejected_with_reason_present"
+    },
+    {
+      "id": "SD-001",
+      "category": "source_discipline",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "正文中的数字、日期与第三方事实大部分带有可解析来源标注。",
+      "check_type": "coverage_ratio",
+      "threshold": 0.75,
+      "runner_signal": "numeric_and_fact_citation_coverage"
+    },
+    {
+      "id": "SD-002",
+      "category": "source_discipline",
+      "polarity": "positive",
+      "weight": 3,
+      "criterion": "关键判断主要由 A/B/C 类来源支撑，且至少使用两条 A 类厚来源。",
+      "check_type": "tier_score",
+      "threshold": 0.65,
+      "runner_signal": "source_quality_score"
+    },
+    {
+      "id": "AU-001",
+      "category": "auditability",
+      "polarity": "positive",
+      "weight": 1,
+      "criterion": "Source Register 可解析，且登记来源不少于 8 条。",
+      "check_type": "register_size",
+      "runner_signal": "source_register_count_gte_8"
+    },
+    {
+      "id": "AU-002",
+      "category": "auditability",
+      "polarity": "positive",
+      "weight": 0.5,
+      "criterion": "Key Claim Map 可解析，且包含至少 5 条关键判断。",
+      "check_type": "claim_map_size",
+      "runner_signal": "key_claim_count_gte_5"
+    },
+    {
+      "id": "AU-003",
+      "category": "auditability",
+      "polarity": "positive",
+      "weight": 0.5,
+      "criterion": "Core Numbers Table 可解析，且包含至少 8 条关键数字。",
+      "check_type": "numbers_table_size",
+      "runner_signal": "core_numbers_count_gte_8"
+    },
+    {
+      "id": "NG-001",
+      "category": "negative",
+      "polarity": "negative",
+      "weight": -6,
+      "criterion": "关键判断不得仅由 D/E/F 类低质量来源支撑。",
+      "check_type": "negative",
+      "runner_signal": "key_claim_low_tier_only_detected"
+    },
+    {
+      "id": "NG-002",
+      "category": "negative",
+      "polarity": "negative",
+      "weight": -5,
+      "criterion": "正文中重要数字句、估值类句或核心第三方事实句不得普遍缺少引用。",
+      "check_type": "negative",
+      "runner_signal": "major_numeric_or_valuation_uncited_detected"
+    },
+    {
+      "id": "NG-003",
+      "category": "negative",
+      "polarity": "negative",
+      "weight": -1,
+      "criterion": "正文不得只点名公司而不解释受益逻辑。",
+      "check_type": "negative",
+      "runner_signal": "company_name_dropping_without_mapping_detected"
+    },
+    {
+      "id": "NG-004",
+      "category": "negative",
+      "polarity": "negative",
+      "weight": -1,
+      "criterion": "正文不得主要表现为工程机械行业综述或均匀铺开的概述文，而缺少清楚主线。",
+      "check_type": "negative",
+      "runner_signal": "industry_overview_drift_detected"
+    },
+    {
+      "id": "NG-005",
+      "category": "negative",
+      "polarity": "negative",
+      "weight": -1,
+      "criterion": "正文引用、Key Claim Map 与 Source Register 之间不得大面积不一致。",
+      "check_type": "negative",
+      "runner_signal": "citation_register_inconsistency_detected"
+    },
+    {
+      "id": "NG-006",
+      "category": "negative",
+      "polarity": "negative",
+      "weight": -15,
+      "criterion": "“结构性机会与受益方向”部分若多次点到公司，但缺少足够的公司级数字锚点与正文分析，不得视为高质量受益映射。",
+      "check_type": "negative",
+      "runner_signal": "beneficiary_company_mapping_data_thin_detected"
+    },
+    {
+      "id": "NG-007",
+      "category": "negative",
+      "polarity": "negative",
+      "weight": -12,
+      "criterion": "“结构性机会与受益方向”部分若篇幅已经很长且多次点到公司，但仍未形成足够的公司级数字锚定与进一步分析，应视为长而浅的定性展开。",
+      "check_type": "negative",
+      "runner_signal": "beneficiary_long_shallow_detected"
+    }
+  ]
+}
